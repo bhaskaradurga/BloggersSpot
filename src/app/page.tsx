@@ -2,7 +2,7 @@ import { blogPosts } from "@/lib/mock-data";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { CategoryFilter } from "@/components/blog/CategoryFilter";
 
-export default function HomePage({
+export default async function HomePage({
   searchParams,
 }: {
   searchParams?: { category?: string };
