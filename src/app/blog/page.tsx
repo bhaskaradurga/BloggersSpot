@@ -2,7 +2,7 @@ import { blogPosts } from "@/lib/mock-data";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { CategoryFilter } from "@/components/blog/CategoryFilter";
 
-export default function HomePage({
+export default function BlogPage({
   searchParams,
 }: {
   searchParams?: { category?: string };
@@ -12,15 +12,14 @@ export default function HomePage({
   const filteredPosts = currentCategory
     ? blogPosts.filter((post) => post.category === currentCategory)
     : blogPosts;
-
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Discover
+          All Posts
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">
-          A curated list of the latest articles and insights.
+          Browse through all available articles.
         </p>
       </div>
 

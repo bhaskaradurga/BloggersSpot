@@ -1,22 +1,20 @@
+import Link from "next/link";
+import { BlogPost } from "@/lib/mock-data";
 
-import Link from 'next/link';
-import type { BlogPost } from '@/lib/data';
-
-export const ArticleCard = ({ post }: { post: BlogPost }) => {
+export function ArticleCard({ post }: { post: BlogPost }) {
   return (
-    <Link href={`/blog/${post.slug}`}>
-      <div className="group block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 border border-gray-200 dark:border-gray-700">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{post.title}</h3>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">{post.excerpt}</p>
-        <div className="text-sm text-gray-500 dark:text-gray-400 mt-4 flex items-center justify-between">
+    <Link href={`/blog/${post.slug}`} className="block">
+      <div className="bg-card text-card-foreground rounded-lg border shadow-sm hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+        <div className="p-6 flex-grow">
+          <span className="text-xs text-muted-foreground">{post.category.toUpperCase()}</span>
+          <h3 className="text-lg font-semibold my-2">{post.title}</h3>
+          <p className="text-muted-foreground text-sm mb-4">{post.excerpt}</p>
+        </div>
+        <div className="p-6 pt-0 text-xs text-muted-foreground flex justify-between items-center border-t mt-auto">
           <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-          <div className="flex items-center space-x-4">
-            <span>{post.sourceCount} sources</span>
-            <span className="hidden sm:inline">·</span>
-            <span className="hidden sm:inline">{post.readingTime}</span>
-          </div>
+          <span>{post.sourceCount} sources</span>
         </div>
       </div>
     </Link>
   );
-};
+}
