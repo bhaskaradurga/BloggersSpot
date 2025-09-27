@@ -26,7 +26,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default function CategoryPage({ params }: Props) {
+export default async function CategoryPage({ params }: Props) {
   const category = decodeURIComponent(params.category);
   const posts = blogPosts.filter((post) => post.category === category);
 
