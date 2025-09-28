@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Post } from "@/types";
+import { blogPosts } from "@/lib/mock-data";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
@@ -9,40 +10,20 @@ type Props = {
   params: { slug: string };
 };
 
-// We need a full URL for server-side fetching.
-// In a real app, this would be in a .env file.
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
-
-async function getPost(slug: string): Promise<Post | null> {
-  try {
-    const res = await fetch(`${API_URL}/api/content/${slug}`, {
-      cache: "no-store",
-    });
-    if (!res.ok) {
-      return null;
-    }
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+function getPost(slug: string): Post | undefined {
+  return blogPosts.find((post) => post.slug === slug);
 }
 
-async function getPosts(): Promise<{ posts: Post[] }> {
-  try {
-    const res = await fetch(`${API_URL}/api/content`, { cache: "no-store" });
-    if (!res.ok) {
-      throw new Error("Failed to fetch posts");
-    }
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    return { posts: [] };
-  }
+function getRelatedPosts(tags: string[], currentPostId: string): Post[] {
+  return blogPosts.filter(
+    (post) =>
+      post._id !== currentPostId &&
+      post.tags.some((tag) => tags.includes(tag))
+  ).slice(0, 3);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = await getPost(params.slug);
+  const post = getPost(params.slug);
 
   if (!post) {
     return {};
@@ -55,19 +36,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const { posts } = await getPosts();
-  return posts.map((post) => ({
+  return blogPosts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export default async function BlogPostPage({ params }: Props) {
-  const post = await getPost(params.slug);
+export default function BlogPostPage({ params }: Props) {
+  const post = getPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
+  const relatedPosts = getRelatedPosts(post.tags, post._id);
   const imageUrl = post.images?.[0];
   const videoUrl = post.videos?.[0];
 
@@ -111,7 +92,7 @@ export default async function BlogPostPage({ params }: Props) {
       </article>
 
       <div className="max-w-4xl mx-auto">
-        <RelatedPosts tags={post.tags} currentPostId={post._id} />
+        <RelatedPosts posts={relatedPosts} />
       </div>
     </main>
   );

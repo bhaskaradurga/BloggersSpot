@@ -7,4 +7,5 @@ export interface Post {
   videos: string[];
   tags: string[];
   createdAt: string;
+  category: string;
 }
