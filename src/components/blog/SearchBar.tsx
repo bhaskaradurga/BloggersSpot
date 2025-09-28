@@ -1,15 +1,17 @@
 "use client";
 
+"use client";
+
 import { useState, useEffect } from "react";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { Input } from "@/components/ui/input";
-import { BlogPost } from "@/lib/mock-data";
+import { Post } from "@/types";
 import Link from "next/link";
 import { Search } from "lucide-react";
 
 export function SearchBar() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<BlogPost[]>([]);
+  const [results, setResults] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const debouncedQuery = useDebounce(query, 300);
 
@@ -47,14 +49,16 @@ export function SearchBar() {
           {!isLoading && results.length > 0 && (
             <ul>
               {results.map((post) => (
-                <li key={post.id} className="border-b last:border-b-0">
+                <li key={post._id} className="border-b last:border-b-0">
                   <Link
                     href={`/blog/${post.slug}`}
                     className="block p-4 hover:bg-accent"
                     onClick={() => setQuery("")}
                   >
                     <h4 className="font-semibold">{post.title}</h4>
-                    <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {post.content.substring(0, 100)}...
+                    </p>
                   </Link>
                 </li>
               ))}

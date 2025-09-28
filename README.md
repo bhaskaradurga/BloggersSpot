@@ -20,7 +20,7 @@ Follow these instructions to get the project up and running on your local machin
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or later recommended)
-- [MongoDB](https://www.mongodb.com/try/download/community) (or a MongoDB Atlas account)
+- [MongoDB](https://www.mongodb.com/try/download/community) (a local installation or a MongoDB Atlas account)
 
 ### 1. Clone the Repository
 
@@ -47,22 +47,23 @@ Create a `.env` file in the root of the project by copying the example file:
 cp .env.example .env
 ```
 
-Now, open the `.env` file and fill in the required values:
+Now, open the `.env` file and add your custom values for the following variables:
 
-- `MONGO_URI`: Your MongoDB connection string.
-- `JWT_SECRET`: A secret key for generating authentication tokens.
+- `MONGO_URI`: Your MongoDB connection string. For a local MongoDB instance, this will typically be `mongodb://localhost:27017/your_db_name`.
+- `PORT`: The port for the backend server. The default is `5001`.
+- `JWT_SECRET`: A secret key for generating authentication tokens. Use a long, random string for security.
 - `ADMIN_USERNAME`: The desired username for the admin account.
 - `ADMIN_PASSWORD`: A secure password for the admin account.
 
 ### 4. Seed the Database
 
-With the environment variables configured, run the seed script to create the admin user in the database:
+With the environment variables configured, run the seed script to create the admin user and sample blog posts in the database:
 
 ```bash
 npm run seed
 ```
 
-This will connect to your database and create the admin user with the credentials you provided.
+This will connect to your database, create the admin user with the credentials you provided, and populate the database with some initial blog posts.
 
 ### 5. Run the Application
 
@@ -74,10 +75,11 @@ To start the development server, run:
 npm run dev
 ```
 
-This will start the backend server on port `5001` and the Next.js frontend on port `3000`.
+This will start the backend server on the port specified in your `.env` file (defaulting to `5001`) and the Next.js frontend on port `3000`.
 
+- **Public Blog**: [http://localhost:3000](http://localhost:3000)
 - **Admin Portal**: [http://localhost:3000/admin](http://localhost:3000/admin)
-- **Public Blog**: [http://localhost:3000/blog](http://localhost:3000/blog)
+
 
 ### 6. Run Tests
 

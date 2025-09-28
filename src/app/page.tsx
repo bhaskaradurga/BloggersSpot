@@ -1,6 +1,25 @@
-import { blogPosts } from "@/lib/mock-data";
 import { ArticleCard } from "@/components/blog/ArticleCard";
 import { CategoryFilter } from "@/components/blog/CategoryFilter";
+import { Post } from "@/types";
+
+async function getPosts(category?: string) {
+  const url = new URL("http://localhost:3000/api/posts");
+  if (category) {
+    url.searchParams.append("tags", category);
+  }
+
+  try {
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+    const data = await res.json();
+    return data.posts;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 
 export default async function HomePage({
   searchParams,
@@ -8,10 +27,7 @@ export default async function HomePage({
   searchParams?: { category?: string };
 }) {
   const currentCategory = searchParams?.category;
-
-  const filteredPosts = currentCategory
-    ? blogPosts.filter((post) => post.category === currentCategory)
-    : blogPosts;
+  const posts: Post[] = await getPosts(currentCategory);
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -29,8 +45,8 @@ export default async function HomePage({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-        {filteredPosts.map((post) => (
-          <ArticleCard key={post.id} post={post} />
+        {posts.map((post) => (
+          <ArticleCard key={post._id} post={post} />
         ))}
       </div>
     </main>

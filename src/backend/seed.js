@@ -2,6 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const User = require('./models/User');
+const Post = require('./models/Post');
 
 const connectDB = async () => {
   try {
@@ -17,15 +18,13 @@ const connectDB = async () => {
 };
 
 const seedAdminUser = async () => {
-  await connectDB();
-
   try {
     const adminUsername = process.env.ADMIN_USERNAME;
     const adminPassword = process.env.ADMIN_PASSWORD;
 
     if (!adminUsername || !adminPassword) {
       console.error('ADMIN_USERNAME and ADMIN_PASSWORD must be set in .env file');
-      process.exit(1);
+      return;
     }
 
     const existingUser = await User.findOne({ username: adminUsername });
@@ -46,10 +45,48 @@ const seedAdminUser = async () => {
     console.log('Admin user created successfully.');
   } catch (error) {
     console.error('Error seeding admin user:', error.message);
-  } finally {
-    await mongoose.disconnect();
-    console.log('MongoDB disconnected');
   }
 };
 
-seedAdminUser();
+const seedPosts = async () => {
+  try {
+    await Post.deleteMany({});
+    console.log('Posts cleared');
+
+    const posts = [
+      {
+        title: 'First Post',
+        slug: 'first-post',
+        content: 'This is the content of the first post.',
+        images: [],
+        videos: [],
+        tags: ['Tech'],
+        category: 'Tech',
+      },
+      {
+        title: 'Second Post',
+        slug: 'second-post',
+        content: 'This is the content of the second post.',
+        images: [],
+        videos: [],
+        tags: ['Health'],
+        category: 'Health',
+      },
+    ];
+
+    await Post.insertMany(posts);
+    console.log('Posts seeded successfully.');
+  } catch (error) {
+    console.error('Error seeding posts:', error.message);
+  }
+};
+
+const seedAll = async () => {
+  await connectDB();
+  await seedAdminUser();
+  await seedPosts();
+  await mongoose.disconnect();
+  console.log('MongoDB disconnected');
+};
+
+seedAll();
