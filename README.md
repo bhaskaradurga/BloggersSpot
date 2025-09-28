@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Full-Stack Content Management System
+
+This project is a complete, full-stack content management system (CMS) with a secure admin portal and a public-facing blog. It's built with a Next.js frontend and a Node.js/Express backend, using MongoDB as the database.
+
+## Features
+
+- **Secure Admin Portal**: A private, secure admin portal for managing content.
+- **Full CRUD Functionality**: Create, read, update, and delete posts with a user-friendly interface.
+- **Rich Content Creation**: Supports Markdown for content, as well as image and video embedding.
+- **Tag Management**: Easily add and manage tags for each post.
+- **Dynamic Frontend**: The public-facing blog is fully integrated with the backend, displaying content dynamically.
+- **Search and Filtering**: The blog supports searching and filtering by tags.
+- **Responsive Design**: Both the admin portal and the blog are fully responsive and work on all devices.
+- **API Testing**: The backend API is covered by a suite of tests to ensure reliability.
 
 ## Getting Started
 
-First, run the development server:
+Follow these instructions to get the project up and running on your local machine.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- [MongoDB](https://www.mongodb.com/try/download/community) (or a MongoDB Atlas account)
+
+### 1. Clone the Repository
+
+First, clone the repository to your local machine:
+
+```bash
+git clone <repository-url>
+cd <repository-directory>
+```
+
+### 2. Install Dependencies
+
+Install all the required dependencies for both the frontend and backend:
+
+```bash
+npm install
+```
+
+### 3. Set Up Environment Variables
+
+Create a `.env` file in the root of the project by copying the example file:
+
+```bash
+cp .env.example .env
+```
+
+Now, open the `.env` file and fill in the required values:
+
+- `MONGO_URI`: Your MongoDB connection string.
+- `JWT_SECRET`: A secret key for generating authentication tokens.
+- `ADMIN_USERNAME`: The desired username for the admin account.
+- `ADMIN_PASSWORD`: A secure password for the admin account.
+
+### 4. Seed the Database
+
+With the environment variables configured, run the seed script to create the admin user in the database:
+
+```bash
+npm run seed
+```
+
+This will connect to your database and create the admin user with the credentials you provided.
+
+### 5. Run the Application
+
+You're now ready to run the application. The backend server and the Next.js frontend will run concurrently.
+
+To start the development server, run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will start the backend server on port `5001` and the Next.js frontend on port `3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Admin Portal**: [http://localhost:3000/admin](http://localhost:3000/admin)
+- **Public Blog**: [http://localhost:3000/blog](http://localhost:3000/blog)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 6. Run Tests
 
-## Learn More
+To run the backend API tests, use the following command:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This will run all the tests and ensure that the backend is functioning correctly.
