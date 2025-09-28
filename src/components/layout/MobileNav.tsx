@@ -55,10 +55,6 @@ export function MobileNav() {
                   </Link>
                 ))}
               </nav>
-              <div className="mt-8 border-t pt-4 flex flex-col space-y-2">
-                <Button variant="ghost">Sign In</Button>
-                <Button>Sign Up</Button>
-              </div>
             </div>
           </div>
         </div>

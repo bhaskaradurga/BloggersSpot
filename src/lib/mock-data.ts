@@ -9,7 +9,9 @@ export const blogPosts = [
     category: "Technology",
     sourceCount: 42,
     readingTime: "7 min read",
-    author: "Jane Doe"
+    author: "Jane Doe",
+    imageUrl: "https://images.unsplash.com/photo-1620712943543-959682338250?q=80&w=2670&auto=format&fit=crop",
+    videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"
   },
   {
     id: 2,
@@ -21,7 +23,9 @@ export const blogPosts = [
     category: "Lifestyle",
     sourceCount: 28,
     readingTime: "6 min read",
-    author: "John Smith"
+    author: "John Smith",
+    imageUrl: "https://images.unsplash.com/photo-1492496913980-501348b61469?q=80&w=2574&auto=format&fit=crop",
+    videoUrl: null
   },
   {
     id: 3,
@@ -33,7 +37,9 @@ export const blogPosts = [
     category: "Business",
     sourceCount: 35,
     readingTime: "5 min read",
-    author: "Emily White"
+    author: "Emily White",
+    imageUrl: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2670&auto=format&fit=crop",
+    videoUrl: null
   },
   {
     id: 4,
@@ -45,7 +51,9 @@ export const blogPosts = [
     category: "Science",
     sourceCount: 51,
     readingTime: "9 min read",
-    author: "Michael Green"
+    author: "Michael Green",
+    imageUrl: null,
+    videoUrl: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"
   },
   {
     id: 5,
@@ -57,7 +65,9 @@ export const blogPosts = [
     category: "Self-Improvement",
     sourceCount: 19,
     readingTime: "4 min read",
-    author: "Chris Lee"
+    author: "Chris Lee",
+    imageUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2670&auto=format&fit=crop",
+    videoUrl: null
   }
 ];
 
