@@ -23,7 +23,7 @@ export function Header() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
+          <div className="w-full flex-1 max-w-sm md:w-auto md:flex-none">
             <SearchBar />
           </div>
           <div className="hidden md:flex items-center">
