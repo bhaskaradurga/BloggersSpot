@@ -28,10 +28,6 @@ export function Header() {
           </div>
           <div className="hidden md:flex items-center">
             <ThemeToggle />
-            <Button variant="ghost" className="ml-2">
-              Sign In
-            </Button>
-            <Button className="ml-2">Sign Up</Button>
           </div>
         </div>
       </div>
